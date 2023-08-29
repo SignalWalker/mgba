@@ -25,7 +25,7 @@
       formatter = std.mapAttrs (system: pkgs: pkgs.default) inputs.alejandra.packages;
       packages =
         std.mapAttrs (system: pkgs: {
-          mgba = pkgs.stdenv.mkDerivation {
+          mgba = pkgs.llvmPackages_16.stdenv.mkDerivation {
             name = "mgba";
             src = ./.;
             nativeBuildInputs = with pkgs; [
@@ -39,6 +39,9 @@
             preFixup = ''
               qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
             '';
+            hardeningDisable = [
+              "fortify" # breaks compilation of gb/debugger/debugger.c
+            ];
             buildInputs = with pkgs; [
               SDL2
               lua
