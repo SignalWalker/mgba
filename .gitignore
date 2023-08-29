@@ -8,6 +8,9 @@
 /build
 /build-*
 /.vs
+## Nix
+/result
+/result-*
 
 # Build files
 *.a
